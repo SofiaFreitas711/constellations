@@ -1,6 +1,7 @@
 let video;
 let poseNet;
-let poses = [];
+let pose
+let poses = []
 let w = window.innerWidth
 let h = window.innerHeight
 let leftShoulderX = 0
@@ -23,6 +24,7 @@ let leftKneeX = 0
 let leftKneeY = 0
 let rightKneeX = 0
 let rightKneeY = 0
+let skeleton
 
 function setup() {
   let canvas = createCanvas(1000,750);
@@ -31,7 +33,7 @@ function setup() {
   video.size(1000,750)
 
   // Create a new poseNet method with a single detection
-  poseNet = ml5.poseNet(video, {poseResolution: 17, confidenceThreshold: 0.7,maxPoseDetections:1},modelReady);
+  poseNet = ml5.poseNet(video, {poseResolution: 17, confidenceThreshold: 0.7,maxPoseDetections:1});
   // This sets up an event that fills the global variable "poses"
   // with an array every time new poses are detected
   poseNet.on("pose", gotPoses);
@@ -43,7 +45,7 @@ function gotPoses(poses) {
   
   if (poses.length > 0) {
     pose = poses[0].pose
-    // skeleton = poses[0].skeleton
+    skeleton = poses[0].skeleton
     let LSX = pose.keypoints[5].position.x
     let LSY = pose.keypoints[5].position.y
     let RSX = pose.keypoints[6].position.x
@@ -86,6 +88,7 @@ function gotPoses(poses) {
     leftKneeY = lerp(leftKneeY, LKY, 0.5)
     rightKneeX = lerp(rightKneeX, RKX, 0.5)
     rightKneeY = lerp(rightKneeY, RKY, 0.5)
+
   }
 }
 
@@ -98,9 +101,10 @@ function draw() {
 
   // We can call both functions to draw all keypoints and the skeletons
   // drawKeypoints();
-  // drawSkeleton();
+  drawSkeleton();
   // drawConstellation()
 
+  fill("red")
   ellipse(leftShoulderX,leftShoulderY,15)
   ellipse(rightShoulderX, rightShoulderY,15)
   ellipse(leftElbowX, leftElbowY,15)
@@ -108,9 +112,23 @@ function draw() {
   ellipse(leftWristX, leftWristY,15)
   ellipse(rightWristX, rightWristY,15)
   ellipse(leftHipX, leftHipY, 15)
-  ellipse (rightHipX, rightHipY,15)
+  ellipse(rightHipX, rightHipY,15)
   ellipse(leftKneeX, leftKneeY,15)
-  ellipse (rightKneeX, rightKneeY,15)
+  ellipse(rightKneeX, rightKneeY,15)
+
+  // if(pose){
+  //   console.log(skeleton)
+  //   for (let i = 0; i <8; i++) {
+  //     console.log(skeleton[i]);
+  //     let a = skeleton[i][0]
+  //     let b = skeleton[i][1]
+  //     console.log(a,b);
+  //     stroke(255, 255, 255)
+  //     line(a.position.x, a.position.y, b.position.x, b.position.y)
+  //   }
+  // }
+
+  
 
 }
 
@@ -133,20 +151,21 @@ function draw() {
 //   }
 // }
 
-// // A function to draw the skeletons
-// function drawSkeleton() {
-//   // Loop through all the skeletons detected
-//   for (let i = 0; i < poses.length; i += 1) {
-//     const skeleton = poses[i].skeleton;
-//     // For every skeleton, loop through all body connections
-//     for (let j = 0; j < skeleton.length; j += 1) {
-//       const partA = skeleton[j][0];
-//       const partB = skeleton[j][1];
-//       stroke(255, 0, 0);
-//       line(partA.position.x, partA.position.y, partB.position.x, partB.position.y);
-//     }
-//   }
-// }
+// A function to draw the skeletons
+function drawSkeleton() {
+  stroke("white")
+  line(leftShoulderX, leftShoulderY, rightShoulderX, rightShoulderY)
+  line(rightShoulderX, rightShoulderY, rightHipX, rightHipY)
+  line(rightHipX, rightHipY, leftHipX, leftHipY)
+  line(leftShoulderX, leftShoulderY, leftHipX, leftHipY)
+  line(leftShoulderX, leftShoulderY, leftElbowX, leftElbowY)
+  line(leftElbowX, leftElbowY, leftWristX, leftWristY)
+  line(rightShoulderX, rightShoulderY, rightElbowX, rightElbowY)
+  line(rightElbowX, rightElbowY, rightWristX, rightWristY)
+  line(leftHipX, leftHipY, leftKneeX, leftHipY)
+  line(rightHipX, rightHipY, rightKneeX, rightKneeY)
+  
+}
 // let constellations = [{},{},{}]
 
 // function drawConstellation(){
