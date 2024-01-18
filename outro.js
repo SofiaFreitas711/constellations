@@ -33,10 +33,10 @@ class Star {
 
 class PlanetRadial {
   constructor(colorStop1, colorStop2) {
-    this.x = random(0, w);
-    this.y = random(0, h);
-    this.radius = 100;
-    this.scale = random(0.1, 3)
+    this.x = random(0, w/2);
+    this.y = random(0, h/3);
+    this.radius = 70;
+    this.scale = random(0.1, 1)
     this.colorStop1 = colorStop1;
     this.colorStop2 = colorStop2;
   }
@@ -59,10 +59,10 @@ class PlanetRadial {
 
 class PlanetLinear {
   constructor(colorStop1, colorStop2, colorStop3) {
-    this.x = random(0, w);
-    this.y = random(0, h);
-    this.radius = 100;
-    this.scale = random(0.1, 3)
+    this.x = random(w/2, w);
+    this.y = random(h, h/3);
+    this.radius = 60;
+    this.scale = random(0.1, 1)
     this.colorStop1 = colorStop1;
     this.colorStop2 = colorStop2;
     this.colorStop3 = colorStop3;
@@ -88,7 +88,7 @@ class PlanetLinear {
 
 class Galaxy {
   constructor(colorStop1, colorStop2) {
-    this.x = random(0, w);
+    this.x = random(0, w/2);
     this.y = random(0, h);
     this.radius = 200;
     this.scale = random(0.1, 3)
@@ -114,7 +114,7 @@ class Galaxy {
 
 class Galaxy02 {
   constructor(colorStop1, colorStop2) {
-    this.x = random(0, w);
+    this.x = random(w/2, w);
     this.y = random(0, h);
     this.radiusX = 250;
     this.radiusY = 100;
