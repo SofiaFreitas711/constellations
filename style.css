@@ -1,8 +1,14 @@
+html{
+  background-image: url("Frame 1.svg");
+  background-size: cover;
+  background-position: 0px -10px;
+}
 html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
   overflow-y: hidden;
+  /* background-color: black; */
 }
 
 canvas {
