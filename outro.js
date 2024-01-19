@@ -1,5 +1,5 @@
 class Star {
-  constructor(x,y) {
+  constructor(x, y) {
     this.opacity = 255
     this.color = color(255, 255, 255, this.opacity)
     this.x = random(0, w)
@@ -30,12 +30,11 @@ class Star {
     endShape()
     pop()
 
-    
   }
 }
 
 class Star02 {
-  constructor(x,y) {
+  constructor(x, y) {
     this.opacity = 255
     this.color = color("red")
     this.x = random(0, w)
@@ -66,19 +65,19 @@ class Star02 {
     endShape()
     pop()
 
-    
   }
 }
 
 class PlanetRadial {
   constructor(colorStop1, colorStop2) {
-    this.x = random(0, w/2);
-    this.y = random(0, h/3);
+    this.x = random(0, w / 2);
+    this.y = random(0, h / 3);
     this.radius = 70;
     this.scale = random(0.1, 1)
     this.colorStop1 = colorStop1;
     this.colorStop2 = colorStop2;
   }
+
   draw() {
     noStroke()
 
@@ -98,8 +97,8 @@ class PlanetRadial {
 
 class PlanetLinear {
   constructor(colorStop1, colorStop2, colorStop3) {
-    this.x = random(w/2, w);
-    this.y = random(h, h/3);
+    this.x = random(w / 2, w);
+    this.y = random(h, h / 3);
     this.radius = 60;
     this.scale = random(0.1, 1)
     this.colorStop1 = colorStop1;
@@ -127,13 +126,14 @@ class PlanetLinear {
 
 class Galaxy {
   constructor(colorStop1, colorStop2) {
-    this.x = random(0, w/2);
+    this.x = random(0, w / 2);
     this.y = random(0, h);
     this.radius = 200;
     this.scale = random(0.1, 3)
     this.colorStop1 = colorStop1;
     this.colorStop2 = colorStop2;
   }
+
   draw() {
     noStroke()
 
@@ -153,7 +153,7 @@ class Galaxy {
 
 class Galaxy02 {
   constructor(colorStop1, colorStop2) {
-    this.x = random(w/2, w);
+    this.x = random(w / 2, w);
     this.y = random(0, h);
     this.radiusX = 250;
     this.radiusY = 100;
@@ -161,6 +161,7 @@ class Galaxy02 {
     this.colorStop1 = colorStop1;
     this.colorStop2 = colorStop2;
   }
+
   draw() {
     noStroke()
     scale(this.scale, 0.5);
@@ -193,32 +194,31 @@ class Galaxy02 {
   }
 }
 
-class ShootingStar{
-  constructor(){
-    this.color = color(255,255,255,200)
+class ShootingStar {
+  constructor() {
+    this.color = color(255, 255, 255, 200)
     this.x = -10
     this.y = 50
-
   }
-  
-  draw(){
+
+  draw() {
+
     fill(this.color)
     noStroke()
     push()
     let grad = drawingContext.createLinearGradient(
-      this.x -25, this.y,
-      this.x+25, this.y
+      this.x - 25, this.y,
+      this.x + 25, this.y
     );
-    grad.addColorStop(0, color(255,255,255,0));
-    grad.addColorStop(1, color(255,255,255,220));
+    grad.addColorStop(0, color(255, 255, 255, 0));
+    grad.addColorStop(1, color(255, 255, 255, 220));
     drawingContext.fillStyle = grad;
-    ellipse(this.x-15, this.y, 100,20)
+    ellipse(this.x - 15, this.y, 100, 20)
     pop()
-    ellipse(this.x+25,this.y,10,10)
-    
+    ellipse(this.x + 25, this.y, 10, 10)
   }
-  
-  shoot(){
+
+  shoot() {
     this.x += 4.5
   }
 }
@@ -257,23 +257,24 @@ let planetL;
 let galaxy
 let galaxy02
 let length
-let sky 
+let sky
 let stage = 0
-let constellations = [{LWX: 282, LWY: 521, LEX:334, LEY:462, LSX:439, LSY:410, RSX:569, RSY:422},
-                      {LWX: 270, LWY: 310, LEX: 334, LEY:462, LSX:439,LSY:410, RSX:569,RSY:422},
-                      {LWX: 350, LWY: 280, LEX: 280, LEY: 380, LSX:400, LSY:405, RSX:550, RSY:410, REX: 670, REY:450, RWX:850, RWY:440}]
+let constellations = [{ LWX: 282, LWY: 521, LEX: 334, LEY: 462, LSX: 439, LSY: 410, RSX: 569, RSY: 422 },
+{ LWX: 270, LWY: 310, LEX: 300, LEY: 395, LSX: 425, LSY: 350, RSX: 590, RSY: 340, REX: 700, REY: 390, RWX: 760, RWY: 330 },
+{ LWX: 350, LWY: 280, LEX: 280, LEY: 380, LSX: 400, LSY: 405, RSX: 550, RSY: 410, REX: 670, REY: 450, RWX: 850, RWY: 440 }]
 let shootingStar
 let drawShootingStar = false
+let distanceValues = []
 
 function setup() {
-  // translate(w,0)
-  // scale(-1,1)
-  let canvas = createCanvas(1000,820);
-  canvas.position(350,0)
+  // translate(w, 0)
+  // scale(-1, 1)
+  let canvas = createCanvas(1000, 820);
+  canvas.position(350, 0)
   video = createCapture(VIDEO)
-  video.size(1000,820)
+  video.size(1000, 820)
 
-  poseNet = ml5.poseNet(video, {poseResolution: 17, confidenceThreshold: 0.7,maxPoseDetections:1});
+  poseNet = ml5.poseNet(video, { poseResolution: 17, confidenceThreshold: 0.7, maxPoseDetections: 1 });
   poseNet.on("pose", gotPoses);
   video.hide();
 
@@ -292,48 +293,47 @@ function setup() {
   stars[length].x = leftShoulderX
   stars[length].y = leftShoulderY
   stars[length].color = color("#fe4a49")
-  stars[length+1] = new Star 
-  stars[length+1].x = rightShoulderX
-  stars[length+1].y = rightShoulderY
-  stars[length+1].color = color("#fe4a49")
-  stars[length+2] = new Star
-  stars[length+2].x = leftElbowX
-  stars[length+2].y = leftElbowY
-  stars[length+2].color = color("#fed766")
-  stars[length+3] = new Star
-  stars[length+3].x = rightElbowX
-  stars[length+3].y = rightElbowY
-  stars[length+3].color = color("#fed766")
-  stars[length+4] = new Star
-  stars[length+4].x = leftWristX
-  stars[length+4].y = leftWristY
-  stars[length+4].color = color("#009fb7")
-  stars[length+5] = new Star
-  stars[length+5].x = rightWristX
-  stars[length+5].y = rightWristY
-  stars[length+5].color = color("#009fb7")
-  stars[length+6] = new Star
-  stars[length+6].x = leftHipX
-  stars[length+6].y = leftHipY
-  stars[length+6].color = color("#f9dc5c")
-  stars[length+7] = new Star
-  stars[length+7].x = rightHipX
-  stars[length+7].y = rightHipY
-  stars[length+7].color = color("#f9dc5c")
-  stars[length+8] = new Star
-  stars[length+8].x = leftKneeX
-  stars[length+8].y = leftKneeY
-  stars[length+8].color = color("#f9dc5c")
-  stars[length+9] = new Star
-  stars[length+9].x = rightKneeX
-  stars[length+9].y = rightKneeY
-  stars[length+9].color = color("#f9dc5c")
-
+  stars[length + 1] = new Star
+  stars[length + 1].x = rightShoulderX
+  stars[length + 1].y = rightShoulderY
+  stars[length + 1].color = color("#fe4a49")
+  stars[length + 2] = new Star
+  stars[length + 2].x = leftElbowX
+  stars[length + 2].y = leftElbowY
+  stars[length + 2].color = color("#fed766")
+  stars[length + 3] = new Star
+  stars[length + 3].x = rightElbowX
+  stars[length + 3].y = rightElbowY
+  stars[length + 3].color = color("#fed766")
+  stars[length + 4] = new Star
+  stars[length + 4].x = leftWristX
+  stars[length + 4].y = leftWristY
+  stars[length + 4].color = color("#009fb7")
+  stars[length + 5] = new Star
+  stars[length + 5].x = rightWristX
+  stars[length + 5].y = rightWristY
+  stars[length + 5].color = color("#009fb7")
+  stars[length + 6] = new Star
+  stars[length + 6].x = leftHipX
+  stars[length + 6].y = leftHipY
+  stars[length + 6].color = color("#f9dc5c")
+  stars[length + 7] = new Star
+  stars[length + 7].x = rightHipX
+  stars[length + 7].y = rightHipY
+  stars[length + 7].color = color("#f9dc5c")
+  stars[length + 8] = new Star
+  stars[length + 8].x = leftKneeX
+  stars[length + 8].y = leftKneeY
+  stars[length + 8].color = color("#f9dc5c")
+  stars[length + 9] = new Star
+  stars[length + 9].x = rightKneeX
+  stars[length + 9].y = rightKneeY
+  stars[length + 9].color = color("#f9dc5c")
 
 }
 
 function gotPoses(poses) {
-  
+
   if (poses.length > 0) {
     pose = poses[0].pose
     skeleton = poses[0].skeleton
@@ -357,29 +357,28 @@ function gotPoses(poses) {
     let LKY = pose.keypoints[13].position.y
     let RKX = pose.keypoints[14].position.x
     let RKY = pose.keypoints[14].position.y
-    
-let value = 0.1
+
+    let value = 0.1
     leftShoulderX = lerp(leftShoulderX, LSX, value)
     leftShoulderY = lerp(leftShoulderY, LSY, value)
-    rightShoulderX = lerp(rightShoulderX,RSX, value)
+    rightShoulderX = lerp(rightShoulderX, RSX, value)
     rightShoulderY = lerp(rightShoulderY, RSY, value)
     leftElbowX = lerp(leftElbowX, LEX, value)
     leftElbowY = lerp(leftElbowY, LEY, value)
     rightElbowX = lerp(rightElbowX, REX, value)
     rightElbowY = lerp(rightElbowY, REY, value)
-    leftWristX = lerp(leftWristX, LWX,value)
+    leftWristX = lerp(leftWristX, LWX, value)
     leftWristY = lerp(leftWristY, LWY, value)
     rightWristX = lerp(rightWristX, RWX, value)
     rightWristY = lerp(rightWristY, RWY, value)
     leftHipX = lerp(leftHipX, LHX, value)
     leftHipY = lerp(leftHipY, LHY, value)
     rightHipX = lerp(rightHipX, RHX, value)
-    rightHipY = lerp(rightHipY, RHY,value)
+    rightHipY = lerp(rightHipY, RHY, value)
     leftKneeX = lerp(leftKneeX, LKX, value)
     leftKneeY = lerp(leftKneeY, LKY, value)
     rightKneeX = lerp(rightKneeX, RKX, value)
     rightKneeY = lerp(rightKneeY, RKY, value)
-
   }
 }
 
@@ -391,70 +390,68 @@ function draw() {
   // galaxy02.draw()
   // ["0E1422","273559","324063"]
   push()
-  if(stage == 0){
+  if (stage == 0) {
     sky = "#0E1422"
-  }else if(stage == 1){
+  } else if (stage == 1) {
     sky = "#273559"
-  }else{
+  } else {
     sky = "#324063"
   }
   // document.querySelector("html").style.backgroundColor = sky
   // document.querySelector("body").style.border = sky
   fill(sky)
-  rect(0,0,w,h)
+  rect(0, 0, w, h)
   pop()
-  
-  if(frameCount%600==0){
-    drawShootingStar=true
+
+  if (frameCount % 600 == 0) {
+    drawShootingStar = true
   }
   console.log(shootingStar.x);
-  if(drawShootingStar == true){
-    if(shootingStar.x < 1000){
+  if (drawShootingStar == true) {
+    if (shootingStar.x < 1000) {
       shootingStar.draw()
       shootingStar.shoot()
-    }else{
+    } else {
       drawShootingStar = false
-      shootingStar.x=-15
+      shootingStar.x = -15
     }
   }
   drawSkeleton();
-  
-  drawConstellation()
 
-  
+  drawConstellation()
 
   for (let i = 0; i < stars.length; i++) {
     let star = stars[i]
-    
+
     star.draw()
   }
 
   for (let i = 0; i < stars02.length; i++) {
     let star = stars02[i]
-    
+
     star.draw()
   }
-  
-  stars[length].x = leftShoulderX -8
-  stars[length].y = leftShoulderY -8
-  stars[length+1].x = rightShoulderX -8
-  stars[length+1].y = rightShoulderY -8
-  stars[length+2].x = leftElbowX-8
-  stars[length+2].y = leftElbowY-8
-  stars[length+3].x = rightElbowX-8
-  stars[length+3].y = rightElbowY-8
-  stars[length+4].x = leftWristX-8
-  stars[length+4].y = leftWristY-8
-  stars[length+5].x = rightWristX-8
-  stars[length+5].y = rightWristY-8
-  stars[length+6].x = leftHipX-8
-  stars[length+6].y = leftHipY-8
-  stars[length+7].x = rightHipX-8
-  stars[length+7].y = rightHipY-8
-  stars[length+8].x = leftKneeX-8
-  stars[length+8].y = leftKneeY-8
-  stars[length+9].x = rightKneeX-8
-  stars[length+9].y = rightKneeY-8
+
+  stars[length].x = leftShoulderX - 8
+  stars[length].y = leftShoulderY - 8
+  stars[length + 1].x = rightShoulderX - 8
+  stars[length + 1].y = rightShoulderY - 8
+  stars[length + 2].x = leftElbowX - 8
+  stars[length + 2].y = leftElbowY - 8
+  stars[length + 3].x = rightElbowX - 8
+  stars[length + 3].y = rightElbowY - 8
+  stars[length + 4].x = leftWristX - 8
+  stars[length + 4].y = leftWristY - 8
+  stars[length + 5].x = rightWristX - 8
+  stars[length + 5].y = rightWristY - 8
+  stars[length + 6].x = leftHipX - 8
+  stars[length + 6].y = leftHipY - 8
+  stars[length + 7].x = rightHipX - 8
+  stars[length + 7].y = rightHipY - 8
+  stars[length + 8].x = leftKneeX - 8
+  stars[length + 8].y = leftKneeY - 8
+  stars[length + 9].x = rightKneeX - 8
+  stars[length + 9].y = rightKneeY - 8
 
   fill("red")
 
@@ -472,58 +469,252 @@ function drawSkeleton() {
   line(rightElbowX, rightElbowY, rightWristX, rightWristY)
   line(leftHipX, leftHipY, leftKneeX, leftKneeY)
   line(rightHipX, rightHipY, rightKneeX, rightKneeY)
-  
+
 }
 
-function drawConstellation(){
-  
-  if(stage == 0){
+function drawConstellation() {
+
+  distances()
+  let maxDistance = 10
+
+  if (stage == 0) {
     stars02[0] = new Star02
     stars02[0].x = constellations[0].LWX
     stars02[0].y = constellations[0].LWY
+    stars02[0].color.setAlpha(0)
+
+    if (distanceValues[0] < 250) {
+      stars02[0].color = color("red")
+    } else {
+      let transparency = map(distanceValues[0], 0, maxDistance, 255, 0)
+      stars02[0].color.setAlpha(transparency);
+    }
+
     stars02[1] = new Star02
     stars02[1].x = constellations[0].LEX
     stars02[1].y = constellations[0].LEY
+    stars02[1].color.setAlpha(0)
+
+    if (distanceValues[1] < 150) {
+      stars02[1].color = color("red")
+    } else {
+      let transparency = map(distanceValues[1], 0, maxDistance, 255, 0)
+      stars02[1].color.setAlpha(transparency);
+    }
+
     stars02[2] = new Star02
     stars02[2].x = constellations[0].LSX
     stars02[2].y = constellations[0].LSY
+    stars02[2].color.setAlpha(0)
+
+    if (distanceValues[2] < 100) {
+      stars02[2].color = color("red")
+    } else {
+      let transparency = map(distanceValues[2], 0, maxDistance, 255, 0)
+      stars02[2].color.setAlpha(transparency);
+    }
+
     stars02[3] = new Star02
     stars02[3].x = constellations[0].RSX
     stars02[3].y = constellations[0].RSY
-    
+    stars02[3].color.setAlpha(0)
+
+    if (distanceValues[3] < 100) {
+      stars02[3].color = color("red")
+    } else {
+      let transparency = map(distanceValues[3], 0, maxDistance, 255, 0)
+      stars02[3].color.setAlpha(transparency);
+    }
+
   }
-  // else if(stage == 1){
-    // stars02 = []
-  //   stars[length] = new Star
-  //   stars[length].x = constellations[1].LWX
-  //   stars[length].y = constellations[1].LWY
-  //   stars[length+1] = new Star
-  //   stars[length+1].x = constellations[1].LEX
-  //   stars[length+1].y = constellations[1].LEY
-  //   stars[length+2] = new Star
-  //   stars[length+2].x = constellations[1].LSX
-  //   stars[length+2].y = constellations[1].LSY
-  //   stars[length+3] = new Star
-  //   stars[length+3].x = constellations[1].RSX
-  //   stars[length+3].y = constellations[1].RSY
-  // }else{
-  //   stars[length] = new Star
-  //   stars[length].x = constellations[2].LWX
-  //   stars[length].y = constellations[2].LWY
-  //   stars[length+1] = new Star
-  //   stars[length+1].x = constellations[2].LEX
-  //   stars[length+1].y = constellations[2].LEY
-  //   stars[length+2] = new Star
-  //   stars[length+2].x = constellations[2].LSX
-  //   stars[length+2].y = constellations[2].LSY
-  //   stars[length+3] = new Star
-  //   stars[length+3].x = constellations[2].RSX
-  //   stars[length+3].y = constellations[2].RSY
-  //   stars[length+4] = new Star
-  //   stars[length+4].x = constellations[2].REX
-  //   stars[length+4].y = constellations[2].REY
-  //   stars[length+5] = new Star
-  //   stars[length+5].x = constellations[2].RWX
-  //   stars[length+5].y = constellations[2].RWY
-  // }
+  else if (stage == 1) {
+    stars02 = []
+    stars02[0] = new Star02
+    stars02[0].x = constellations[1].LWX
+    stars02[0].y = constellations[1].LWY
+    stars02[0].color.setAlpha(0)
+
+    if (distanceValues[0] < 250) {
+      stars02[0].color = color("red")
+    } else {
+      let transparency = map(distanceValues[0], 0, maxDistance, 255, 0)
+      stars02[0].color.setAlpha(transparency);
+    }
+
+    stars02[1] = new Star02
+    stars02[1].x = constellations[1].LEX
+    stars02[1].y = constellations[1].LEY
+    stars02[1].color.setAlpha(0)
+
+    if (distanceValues[1] < 150) {
+      stars02[1].color = color("red")
+    } else {
+      let transparency = map(distanceValues[1], 0, maxDistance, 255, 0)
+      stars02[1].color.setAlpha(transparency);
+    }
+
+    stars02[2] = new Star02
+    stars02[2].x = constellations[1].LSX
+    stars02[2].y = constellations[1].LSY
+    stars02[2].color.setAlpha(0)
+
+    if (distanceValues[2] < 100) {
+      stars02[2].color = color("red")
+    } else {
+      let transparency = map(distanceValues[2], 0, maxDistance, 255, 0)
+      stars02[2].color.setAlpha(transparency);
+    }
+
+    stars02[3] = new Star02
+    stars02[3].x = constellations[1].RSX
+    stars02[3].y = constellations[1].RSY
+    stars02[3].color.setAlpha(0)
+
+    if (distanceValues[3] < 100) {
+      stars02[3].color = color("red")
+    } else {
+      let transparency = map(distanceValues[3], 0, maxDistance, 255, 0)
+      stars02[3].color.setAlpha(transparency);
+    }
+
+    stars02[4] = new Star02
+    stars02[4].x = constellations[1].REX
+    stars02[4].y = constellations[1].REY
+    stars02[4].color.setAlpha(0)
+
+    if (distanceValues[4] < 150) {
+      stars02[4].color = color("red")
+    } else {
+      let transparency = map(distanceValues[4], 0, maxDistance, 255, 0)
+      stars02[4].color.setAlpha(transparency);
+    }
+
+    stars02[5] = new Star02
+    stars02[5].x = constellations[1].RWX
+    stars02[5].y = constellations[1].RWY
+    stars02[5].color.setAlpha(0)
+
+    if (distanceValues[5] < 250) {
+      stars02[5].color = color("red")
+    } else {
+      let transparency = map(distanceValues[5], 0, maxDistance, 255, 0)
+      stars02[5].color.setAlpha(transparency);
+    }
+
+  } else {
+    stars02[0] = new Star02
+    stars02[0].x = constellations[2].LWX
+    stars02[0].y = constellations[2].LWY
+    stars02[0].color.setAlpha(0)
+
+    if (distanceValues[0] < 250) {
+      stars02[0].color = color("red")
+    } else {
+      let transparency = map(distanceValues[0], 0, maxDistance, 255, 0)
+      stars02[0].color.setAlpha(transparency);
+    }
+
+    stars02[1] = new Star02
+    stars02[1].x = constellations[2].LEX
+    stars02[1].y = constellations[2].LEY
+    stars02[1].color.setAlpha(0)
+
+    if (distanceValues[1] < 150) {
+      stars02[1].color = color("red")
+    } else {
+      let transparency = map(distanceValues[1], 0, maxDistance, 255, 0)
+      stars02[1].color.setAlpha(transparency);
+    }
+
+    stars02[2] = new Star02
+    stars02[2].x = constellations[2].LSX
+    stars02[2].y = constellations[2].LSY
+    stars02[2].color.setAlpha(0)
+
+    if (distanceValues[2] < 100) {
+      stars02[2].color = color("red")
+    } else {
+      let transparency = map(distanceValues[2], 0, maxDistance, 255, 0)
+      stars02[2].color.setAlpha(transparency);
+    }
+
+    stars02[3] = new Star02
+    stars02[3].x = constellations[2].RSX
+    stars02[3].y = constellations[2].RSY
+    stars02[3].color.setAlpha(0)
+
+    if (distanceValues[3] < 100) {
+      stars02[3].color = color("red")
+    } else {
+      let transparency = map(distanceValues[3], 0, maxDistance, 255, 0)
+      stars02[3].color.setAlpha(transparency);
+    }
+
+    stars02[4] = new Star02
+    stars02[4].x = constellations[2].REX
+    stars02[4].y = constellations[2].REY
+    stars02[4].color.setAlpha(0)
+
+    if (distanceValues[4] < 150) {
+      stars02[4].color = color("red")
+    } else {
+      let transparency = map(distanceValues[4], 0, maxDistance, 255, 0)
+      stars02[4].color.setAlpha(transparency);
+    }
+
+    stars02[5] = new Star02
+    stars02[5].x = constellations[2].RWX
+    stars02[5].y = constellations[2].RWY
+    stars02[5].color.setAlpha(0)
+
+    if (distanceValues[5] < 250) {
+      stars02[5].color = color("red")
+    } else {
+      let transparency = map(distanceValues[5], 0, maxDistance, 255, 0)
+      stars02[5].color.setAlpha(transparency);
+    }
+  }
+
 }
+
+function distances() {
+
+  distanceValues = []
+  let LW, LE, LS, RX, RE, RW
+
+  if (stage == 0) {
+    LW = dist(leftWristX, leftWristY, constellations[0].LWX, constellations[0].LWY)
+    LE = dist(leftElbowX, leftElbowY, constellations[0].LEX, constellations[0].LEY)
+    LS = dist(leftShoulderX, leftShoulderY, constellations[0].LSX, constellations[0].LSY)
+    RX = dist(rightShoulderX, rightShoulderY, constellations[0].RSX, constellations[0].RSY)
+
+    distanceValues.push(LW, LE, LS, RX)
+    console.log(distanceValues)
+
+  } else if (stage == 1) {
+    LW = dist(leftWristX, leftWristY, constellations[1].LWX, constellations[1].LWY)
+    LE = dist(leftElbowX, leftElbowY, constellations[1].LEX, constellations[1].LEY)
+    LS = dist(leftShoulderX, leftShoulderY, constellations[1].LSX, constellations[1].LSY)
+    RX = dist(rightShoulderX, rightShoulderY, constellations[1].RSX, constellations[1].RSY)
+    RE = dist(rightElbowX, rightElbowY, constellations[1].REX, constellations[1].REY)
+    RW = dist(rightWristX, rightWristY, constellations[1].RWX, constellations[1].RWY)
+
+    distanceValues.push(LW, LE, LS, RX, RE, RW)
+    console.log(distanceValues)
+
+
+  } else {
+    LW = dist(leftWristX, leftWristY, constellations[2].LWX, constellations[2].LWY)
+    LE = dist(leftElbowX, leftElbowY, constellations[2].LEX, constellations[2].LEY)
+    LS = dist(leftShoulderX, leftShoulderY, constellations[2].LSX, constellations[2].LSY)
+    RX = dist(rightShoulderX, rightShoulderY, constellations[2].RSX, constellations[2].RSY)
+    RE = dist(rightElbowX, rightElbowY, constellations[2].REX, constellations[2].REY)
+    RW = dist(rightWristX, rightWristY, constellations[2].RWX, constellations[2].RWY)
+
+    distanceValues.push(LW, LE, LS, RX, RE, RW)
+    console.log(distanceValues)
+
+  }
+
+}
+
