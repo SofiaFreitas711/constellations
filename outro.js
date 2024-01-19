@@ -216,10 +216,6 @@ class ShootingStar{
     pop()
     ellipse(this.x+25,this.y,10,10)
     
-    if(this.x > 1000){
-      this.x = -10
-    }
-    
   }
   
   shoot(){
@@ -407,16 +403,18 @@ function draw() {
   fill(sky)
   rect(0,0,w,h)
   pop()
-  if(frameCount%300==0){
+  
+  if(frameCount%600==0){
     drawShootingStar=true
   }
-
+  console.log(shootingStar.x);
   if(drawShootingStar == true){
     if(shootingStar.x < 1000){
       shootingStar.draw()
       shootingStar.shoot()
     }else{
       drawShootingStar = false
+      shootingStar.x=-15
     }
   }
   drawSkeleton();
