@@ -696,13 +696,13 @@ function distances() {
 function addDetails() {
   if (stage == 1) {
     starDeploy()
-    planetL.draw();
 
   } else if (stage == 2) {
     starDeploy()
     planetL.draw();
     planetR.draw();
     galaxy.draw()
+
   }
 }
 
