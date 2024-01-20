@@ -77,7 +77,7 @@ class Star02 {
 class PlanetRadial {
   constructor() {
     this.x = random(0, w);
-    this.y = random(0, h / 2);
+    this.y = random(0, h / 4);
     this.radius = 70;
     this.scale = random(0.5, 1)
 
@@ -108,7 +108,7 @@ class PlanetRadial {
 class PlanetLinear {
   constructor() {
     this.x = random(0, w / 2);
-    this.y = random(0, h / 2);
+    this.y = random(0, h / 4);
     this.radius = 60;
     this.scale = random(0.1, 0.7)
     push()
@@ -140,7 +140,7 @@ class PlanetLinear {
 class Galaxy {
   constructor() {
     this.x = random(0, w / 2);
-    this.y = random(0, h / 2);
+    this.y = random(0, h / 3);
     this.radius = 200;
     this.scale = random(0.1, 3)
     push()
@@ -231,7 +231,7 @@ let planetL;
 let galaxy
 let length
 let sky
-let stage = 0
+let stage = 2
 let constellations = [{ LWX: 282, LWY: 521, LEX: 334, LEY: 462, LSX: 439, LSY: 410, RSX: 569, RSY: 422 },
 { LWX: 270, LWY: 310, LEX: 300, LEY: 395, LSX: 425, LSY: 350, RSX: 590, RSY: 340, REX: 700, REY: 390, RWX: 760, RWY: 330 },
 { LWX: 350, LWY: 280, LEX: 280, LEY: 380, LSX: 400, LSY: 405, RSX: 550, RSY: 410, REX: 670, REY: 450, RWX: 850, RWY: 440 }]
@@ -644,12 +644,14 @@ function drawConstellation() {
     }
   }
 
+  let sum = 0
   for (let i = 0; i < distanceValues.length; i++) {
-    if (distanceValues[i] < 10 && stage < 2) {
-      stage++
-    }
+    sum += distanceValues[i]
   }
-
+  let avg = sum / distanceValues.length
+  if (avg <= 25 && stage < 2) {
+    stage++;
+  }
 }
 
 function distances() {
