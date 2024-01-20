@@ -1,16 +1,22 @@
 class Star {
   constructor(x, y) {
-    this.opacity = 255
-    this.color = color(255, 255, 255, this.opacity)
+    this.color = color(255,255,255)
     this.x = random(0, w)
     this.y = random(0, h)
-    this.scale = random(0.5, 1)
     this.blur = 0
   }
 
   draw() {
-
+    if(frameCount%180==0){
+      // this.color = color(255,255,255,0)
+      this.x = random(0, w)
+      this.y = random(0, h)
+    }
+    if(stage == 1 || stage == 2){
+      this.blur = 30
+    }
     push()
+    noStroke()
     fill(this.color)
     drawingContext.shadowBlur = this.blur
     drawingContext.shadowColor = color("white")
@@ -187,7 +193,7 @@ class ShootingStar {
   constructor() {
     this.color = color(255, 255, 255, 200)
     this.x = -10
-    this.y = 50
+    this.y = 250
   }
 
   draw() {
@@ -247,21 +253,25 @@ let galaxy
 let galaxy02
 let length
 let sky
-let stage = 0
+let stage = 2
 let constellations = [{ LWX: 282, LWY: 521, LEX: 334, LEY: 462, LSX: 439, LSY: 410, RSX: 569, RSY: 422 },
 { LWX: 270, LWY: 310, LEX: 300, LEY: 395, LSX: 425, LSY: 350, RSX: 590, RSY: 340, REX: 700, REY: 390, RWX: 760, RWY: 330 },
 { LWX: 350, LWY: 280, LEX: 280, LEY: 380, LSX: 400, LSY: 405, RSX: 550, RSY: 410, REX: 670, REY: 450, RWX: 850, RWY: 440 }]
 let shootingStar
 let drawShootingStar = false
 let distanceValues = []
+let sound
+
+function preload(){
+  sound = loadSound("relax.wav")
+}
 
 function setup() {
-  // translate(w, 0)
-  // scale(-1, 1)
   let canvas = createCanvas(1000, 820);
   canvas.position(350, 0)
   video = createCapture(VIDEO)
   video.size(1000, 820)
+  
 
   poseNet = ml5.poseNet(video, { poseResolution: 17, confidenceThreshold: 0.7, maxPoseDetections: 1 });
   poseNet.on("pose", gotPoses);
@@ -272,6 +282,8 @@ function setup() {
   galaxy = new Galaxy(color(252, 232, 100, 200), color(310, 80, 100, 0));
   galaxy02 = new Galaxy02(color(252, 232, 100, 255), color(310, 80, 100, 0));
 
+  sound.loop()
+  sound.setVolume(0.3)
 
   for (let i = 0; i < 30; i++) {
     stars[i] = new Star()
@@ -374,6 +386,8 @@ function gotPoses(poses) {
 }
 
 function draw() {
+  translate(1000,0)
+  scale(-1,1)
   image(video, 0, 0, width, height);
 
   // ["0E1422","273559","324063"]
@@ -392,20 +406,7 @@ function draw() {
   pop()
 
 
-  if (frameCount % 600 == 0) {
-    drawShootingStar = true
-  }
-  console.log(shootingStar.x);
-  if (drawShootingStar == true) {
-    if (shootingStar.x < 1000) {
-      shootingStar.draw()
-      shootingStar.shoot()
-    } else {
-      drawShootingStar = false
-      shootingStar.x = -15
-    }
-  }
-
+  addDetails()
   drawSkeleton();
 
   drawConstellation()
@@ -714,5 +715,4 @@ function distances() {
   }
 
 }
-
 
