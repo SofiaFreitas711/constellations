@@ -107,15 +107,15 @@ class PlanetRadial {
 
 class PlanetLinear {
   constructor() {
-    this.x = random(0, w/2);
-    this.y = random(0, h/2);
+    this.x = random(0, w / 2);
+    this.y = random(0, h / 2);
     this.radius = 60;
     this.scale = random(0.1, 0.7)
     push()
     colorMode(HSB)
-    this.colorStop1 = color(random(0,360), 40, 80);
-    this.colorStop2 = color(random(0,360), 20, 80);
-    this.colorStop3 = color(random(0,360), 40, 80);
+    this.colorStop1 = color(random(0, 360), 40, 80);
+    this.colorStop2 = color(random(0, 360), 20, 80);
+    this.colorStop3 = color(random(0, 360), 40, 80);
     pop()
   }
 
@@ -145,8 +145,8 @@ class Galaxy {
     this.scale = random(0.1, 3)
     push()
     colorMode(HSB)
-    this.colorStop1 = color(random(0,360), 40, 80, 200);
-    this.colorStop2 = color(random(0,360), 20, 80, 0);
+    this.colorStop1 = color(random(0, 360), 40, 80, 200);
+    this.colorStop2 = color(random(0, 360), 20, 80, 0);
     pop()
   }
 
@@ -165,42 +165,6 @@ class Galaxy {
 
     ellipse(this.x, this.y, this.radius * 0.7, this.radius * 1.4);
     pop()
-  }
-}
-
-class Galaxy02 {
-  constructor() {
-    this.x = random(200, w)
-    this.y = random(0, h);
-    this.radiusX = 250;
-    this.radiusY = 100;
-    this.scale = random (0.5, 3)
-    push()
-    colorMode(HSB)
-    this.colorStop1 = color(random(0,360), 80, 80, 200);
-    this.colorStop2 = color(random(0,360), 10, 80, 0);
-    pop()
-  }
-
-  draw() {
-    noStroke()
-    push()
-
-    scale(this.scale, 0.5);
-
-    let grad = drawingContext.createRadialGradient(
-      this.x, this.y, this.radiusX / 150,
-      this.x, this.y, this.radiusY
-    );
-
-    grad.addColorStop(0.1, this.colorStop1);
-    grad.addColorStop(0.7, this.colorStop2);
-
-    drawingContext.fillStyle = grad;
-
-    ellipse(this.x, this.y, this.radiusX, this.radiusY);
-    pop()
-
   }
 }
 
@@ -265,10 +229,9 @@ let stars02 = []
 let planetR;
 let planetL;
 let galaxy
-let galaxy02
 let length
 let sky
-let stage = 2
+let stage = 0
 let constellations = [{ LWX: 282, LWY: 521, LEX: 334, LEY: 462, LSX: 439, LSY: 410, RSX: 569, RSY: 422 },
 { LWX: 270, LWY: 310, LEX: 300, LEY: 395, LSX: 425, LSY: 350, RSX: 590, RSY: 340, REX: 700, REY: 390, RWX: 760, RWY: 330 },
 { LWX: 350, LWY: 280, LEX: 280, LEY: 380, LSX: 400, LSY: 405, RSX: 550, RSY: 410, REX: 670, REY: 450, RWX: 850, RWY: 440 }]
@@ -295,7 +258,6 @@ function setup() {
   planetL = new PlanetLinear();
   planetR = new PlanetRadial();
   galaxy = new Galaxy();
-  galaxy02 = new Galaxy02();
 
   sound.loop()
   sound.setVolume(0.3)
@@ -482,7 +444,7 @@ function drawSkeleton() {
 function drawConstellation() {
 
   distances()
-  let maxDistance = 100
+  let maxDistance = 50
 
   if (stage == 0) {
     stars02[0] = new Star02
@@ -490,7 +452,7 @@ function drawConstellation() {
     stars02[0].y = constellations[0].LWY
     stars02[0].color.setAlpha(0)
 
-    if (distanceValues[0] < 50) {
+    if (distanceValues[0] < 80) {
       stars02[0].color = color("#009fb7")
     } else {
       let transparency = map(distanceValues[0], 0, maxDistance, 255, 0)
@@ -514,7 +476,7 @@ function drawConstellation() {
     stars02[2].y = constellations[0].LSY
     stars02[2].color.setAlpha(0)
 
-    if (distanceValues[2] < 100) {
+    if (distanceValues[2] < 20) {
       stars02[2].color = color("#fe4a49")
     } else {
       let transparency = map(distanceValues[2], 0, maxDistance, 255, 0)
@@ -526,7 +488,7 @@ function drawConstellation() {
     stars02[3].y = constellations[0].RSY
     stars02[3].color.setAlpha(0)
 
-    if (distanceValues[3] < 100) {
+    if (distanceValues[3] < 20) {
       stars02[3].color = color("#fe4a49")
     } else {
       let transparency = map(distanceValues[3], 0, maxDistance, 255, 100)
@@ -541,7 +503,7 @@ function drawConstellation() {
     stars02[0].y = constellations[1].LWY
     stars02[0].color.setAlpha(0)
 
-    if (distanceValues[0] < 250) {
+    if (distanceValues[0] < 20) {
       stars02[0].color = color("#009fb7")
     } else {
       let transparency = map(distanceValues[0], 0, maxDistance, 255, 100)
@@ -553,7 +515,7 @@ function drawConstellation() {
     stars02[1].y = constellations[1].LEY
     stars02[1].color.setAlpha(0)
 
-    if (distanceValues[1] < 150) {
+    if (distanceValues[1] < 50) {
       stars02[1].color = color("#fed766")
     } else {
       let transparency = map(distanceValues[1], 0, maxDistance, 255, 100)
@@ -565,7 +527,7 @@ function drawConstellation() {
     stars02[2].y = constellations[1].LSY
     stars02[2].color.setAlpha(0)
 
-    if (distanceValues[2] < 100) {
+    if (distanceValues[2] < 20) {
       stars02[2].color = color("#fe4a49")
     } else {
       let transparency = map(distanceValues[2], 0, maxDistance, 255, 100)
@@ -577,7 +539,7 @@ function drawConstellation() {
     stars02[3].y = constellations[1].RSY
     stars02[3].color.setAlpha(0)
 
-    if (distanceValues[3] < 100) {
+    if (distanceValues[3] < 20) {
       stars02[3].color = color("#fe4a49")
     } else {
       let transparency = map(distanceValues[3], 0, maxDistance, 255, 100)
@@ -589,7 +551,7 @@ function drawConstellation() {
     stars02[4].y = constellations[1].REY
     stars02[4].color.setAlpha(0)
 
-    if (distanceValues[4] < 150) {
+    if (distanceValues[4] < 50) {
       stars02[4].color = color("#fed766")
     } else {
       let transparency = map(distanceValues[4], 0, maxDistance, 255, 100)
@@ -601,7 +563,7 @@ function drawConstellation() {
     stars02[5].y = constellations[1].RWY
     stars02[5].color.setAlpha(0)
 
-    if (distanceValues[5] < 250) {
+    if (distanceValues[5] < 20) {
       stars02[5].color = color("#009fb7")
     } else {
       let transparency = map(distanceValues[5], 0, maxDistance, 255, 100)
@@ -626,7 +588,7 @@ function drawConstellation() {
     stars02[1].y = constellations[2].LEY
     stars02[1].color.setAlpha(0)
 
-    if (distanceValues[1] < 100) {
+    if (distanceValues[1] < 80) {
       stars02[1].color = color("#fed766")
     } else {
       let transparency = map(distanceValues[1], 0, maxDistance, 255, 100)
@@ -638,7 +600,7 @@ function drawConstellation() {
     stars02[2].y = constellations[2].LSY
     stars02[2].color.setAlpha(0)
 
-    if (distanceValues[2] < 100) {
+    if (distanceValues[2] < 50) {
       stars02[2].color = color("#fe4a49")
     } else {
       let transparency = map(distanceValues[2], 0, maxDistance, 255, 100)
@@ -650,7 +612,7 @@ function drawConstellation() {
     stars02[3].y = constellations[2].RSY
     stars02[3].color.setAlpha(0)
 
-    if (distanceValues[3] < 100) {
+    if (distanceValues[3] < 50) {
       stars02[3].color = color("#fe4a49")
     } else {
       let transparency = map(distanceValues[3], 0, maxDistance, 255, 100)
@@ -682,6 +644,12 @@ function drawConstellation() {
     }
   }
 
+  for (let i = 0; i < distanceValues.length; i++) {
+    if (distanceValues[i] < 10 && stage < 2) {
+      stage++
+    }
+  }
+
 }
 
 function distances() {
@@ -696,7 +664,7 @@ function distances() {
     RX = dist(leftShoulderX, leftShoulderY, constellations[0].RSX, constellations[0].RSY)
 
     distanceValues.push(LW, LE, LS, RX)
-    console.log(distanceValues)
+    // console.log(distanceValues)
 
   } else if (stage == 1) {
     LW = dist(rightWristX, rightWristX, constellations[1].LWX, constellations[1].LWY)
@@ -707,7 +675,7 @@ function distances() {
     RW = dist(leftWristX, leftWristY, constellations[1].RWX, constellations[1].RWY)
 
     distanceValues.push(LW, LE, LS, RX, RE, RW)
-    console.log(distanceValues)
+    // console.log(distanceValues)
 
 
   } else {
@@ -719,7 +687,7 @@ function distances() {
     RW = dist(leftWristX, leftWristY, constellations[2].RWX, constellations[2].RWY)
 
     distanceValues.push(LW, LE, LS, RX, RE, RW)
-    console.log(distanceValues)
+    // console.log(distanceValues)
 
   }
 
@@ -728,14 +696,13 @@ function distances() {
 function addDetails() {
   if (stage == 1) {
     starDeploy()
-
+    planetL.draw();
 
   } else if (stage == 2) {
     starDeploy()
     planetL.draw();
     planetR.draw();
     galaxy.draw()
-    galaxy02.draw()
   }
 }
 
