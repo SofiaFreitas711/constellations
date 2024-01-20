@@ -716,3 +716,32 @@ function distances() {
 
 }
 
+function addDetails(){
+  if(stage == 1){
+    starDeploy()
+   
+
+  }else if(stage == 2){
+    starDeploy()
+    // planetL.draw();
+    // planetR.draw();
+    // galaxy.draw()
+    // galaxy02.draw()
+  }
+}
+
+function starDeploy(){
+  if (frameCount % 600 == 0) {
+    drawShootingStar = true
+  }
+  
+  if (drawShootingStar == true) {
+    if (shootingStar.x < 1000) {
+      shootingStar.draw()
+      shootingStar.shoot()
+    } else {
+      drawShootingStar = false
+      shootingStar.x = -15
+    }
+  }
+}
