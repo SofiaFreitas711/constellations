@@ -1,6 +1,7 @@
 html{
   background-image: url("Frame 1.svg");
   background-size: cover;
+  background-repeat: no-repeat;
   background-position: 0px -10px;
 }
 html, body {
@@ -8,7 +9,7 @@ html, body {
   padding: 0;
   overflow-x: hidden;
   overflow-y: hidden;
-  /* background-color: black; */
+  background-color: #1A1F2D;
 }
 
 canvas {

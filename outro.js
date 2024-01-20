@@ -1,18 +1,18 @@
 class Star {
   constructor(x, y) {
-    this.color = color(255,255,255)
+    this.color = color(255, 255, 255)
     this.x = random(0, w)
     this.y = random(0, h)
     this.blur = 0
   }
 
   draw() {
-    if(frameCount%180==0){
+    if (frameCount % 180 == 0) {
       // this.color = color(255,255,255,0)
       this.x = random(0, w)
       this.y = random(0, h)
     }
-    if(stage == 1 || stage == 2){
+    if (stage == 1 || stage == 2) {
       this.blur = 30
     }
     push()
@@ -75,13 +75,17 @@ class Star02 {
 }
 
 class PlanetRadial {
-  constructor(colorStop1, colorStop2) {
-    this.x = random(0, w / 2);
-    this.y = random(0, h / 3);
+  constructor() {
+    this.x = random(0, w);
+    this.y = random(0, h / 2);
     this.radius = 70;
-    this.scale = random(0.1, 1)
-    this.colorStop1 = colorStop1;
-    this.colorStop2 = colorStop2;
+    this.scale = random(0.5, 1)
+
+    push()
+    colorMode(HSB)
+    this.colorStop1 = color(random(0, 360), 40, 80);
+    this.colorStop2 = color(random(0, 360), 40, 80);
+    pop()
   }
 
   draw() {
@@ -92,7 +96,7 @@ class PlanetRadial {
       this.x - 60, this.y - 40, this.radius + 60
     );
 
-    grad2.addColorStop(0, this.colorStop1);
+    grad2.addColorStop(0.1, this.colorStop1);
     grad2.addColorStop(1, this.colorStop2);
 
     drawingContext.fillStyle = grad2;
@@ -102,14 +106,17 @@ class PlanetRadial {
 }
 
 class PlanetLinear {
-  constructor(colorStop1, colorStop2, colorStop3) {
-    this.x = random(w / 2, w);
-    this.y = random(h/3, h);
+  constructor() {
+    this.x = random(0, w/2);
+    this.y = random(0, h/2);
     this.radius = 60;
     this.scale = random(0.1, 0.7)
-    this.colorStop1 = colorStop1;
-    this.colorStop2 = colorStop2;
-    this.colorStop3 = colorStop3;
+    push()
+    colorMode(HSB)
+    this.colorStop1 = color(random(0,360), 40, 80);
+    this.colorStop2 = color(random(0,360), 20, 80);
+    this.colorStop3 = color(random(0,360), 40, 80);
+    pop()
   }
 
   draw() {
@@ -131,13 +138,16 @@ class PlanetLinear {
 }
 
 class Galaxy {
-  constructor(colorStop1, colorStop2) {
+  constructor() {
     this.x = random(0, w / 2);
     this.y = random(0, h / 2);
     this.radius = 200;
     this.scale = random(0.1, 3)
-    this.colorStop1 = colorStop1;
-    this.colorStop2 = colorStop2;
+    push()
+    colorMode(HSB)
+    this.colorStop1 = color(random(0,360), 40, 80, 200);
+    this.colorStop2 = color(random(0,360), 20, 80, 0);
+    pop()
   }
 
   draw() {
@@ -159,31 +169,36 @@ class Galaxy {
 }
 
 class Galaxy02 {
-  constructor(colorStop1, colorStop2) {
-    this.x = 200
-    this.y = 150;
+  constructor() {
+    this.x = random(200, w)
+    this.y = random(0, h);
     this.radiusX = 250;
     this.radiusY = 100;
-    this.colorStop1 = colorStop1;
-    this.colorStop2 = colorStop2;
+    this.scale = random (0.5, 3)
+    push()
+    colorMode(HSB)
+    this.colorStop1 = color(random(0,360), 80, 80, 200);
+    this.colorStop2 = color(random(0,360), 10, 80, 0);
+    pop()
   }
 
   draw() {
     noStroke()
-    scale(this.scale, 0.5);
     push()
+
+    scale(this.scale, 0.5);
 
     let grad = drawingContext.createRadialGradient(
       this.x, this.y, this.radiusX / 150,
-      this.x, this.y, this.radiusY 
+      this.x, this.y, this.radiusY
     );
 
-    grad.addColorStop(0.1, color(252, 232, 100, 255));
-    grad.addColorStop(0.7, color(310, 80, 100, 0));
+    grad.addColorStop(0.1, this.colorStop1);
+    grad.addColorStop(0.7, this.colorStop2);
 
     drawingContext.fillStyle = grad;
 
-    ellipse(this.x, this.y, this.radiusX , this.radiusY );
+    ellipse(this.x, this.y, this.radiusX, this.radiusY);
     pop()
 
   }
@@ -262,7 +277,7 @@ let drawShootingStar = false
 let distanceValues = []
 let sound
 
-function preload(){
+function preload() {
   sound = loadSound("relax.wav")
 }
 
@@ -271,16 +286,16 @@ function setup() {
   canvas.position(350, 0)
   video = createCapture(VIDEO)
   video.size(1000, 820)
-  
+
 
   poseNet = ml5.poseNet(video, { poseResolution: 17, confidenceThreshold: 0.7, maxPoseDetections: 1 });
   poseNet.on("pose", gotPoses);
   video.hide();
 
-  planetL = new PlanetLinear(color(10, 150, 100), color(252, 232, 100), color(310, 80, 100));
-  planetR = new PlanetRadial(color(252, 232, 100), color(310, 80, 100));
-  galaxy = new Galaxy(color(252, 232, 100, 200), color(310, 80, 100, 0));
-  galaxy02 = new Galaxy02(color(252, 232, 100, 255), color(310, 80, 100, 0));
+  planetL = new PlanetLinear();
+  planetR = new PlanetRadial();
+  galaxy = new Galaxy();
+  galaxy02 = new Galaxy02();
 
   sound.loop()
   sound.setVolume(0.3)
@@ -386,8 +401,8 @@ function gotPoses(poses) {
 }
 
 function draw() {
-  translate(1000,0)
-  scale(-1,1)
+  translate(1000, 0)
+  scale(-1, 1)
   image(video, 0, 0, width, height);
 
   // ["0E1422","273559","324063"]
@@ -478,7 +493,7 @@ function drawConstellation() {
     if (distanceValues[0] < 50) {
       stars02[0].color = color("#009fb7")
     } else {
-      let transparency = map(distanceValues[0], 0, maxDistance, 255, 100)
+      let transparency = map(distanceValues[0], 0, maxDistance, 255, 0)
       stars02[0].color.setAlpha(transparency);
     }
 
@@ -490,7 +505,7 @@ function drawConstellation() {
     if (distanceValues[1] < 50) {
       stars02[1].color = color("#fed766")
     } else {
-      let transparency = map(distanceValues[1], 0, maxDistance, 255, 100)
+      let transparency = map(distanceValues[1], 0, maxDistance, 255, 0)
       stars02[1].color.setAlpha(transparency);
     }
 
@@ -502,7 +517,7 @@ function drawConstellation() {
     if (distanceValues[2] < 100) {
       stars02[2].color = color("#fe4a49")
     } else {
-      let transparency = map(distanceValues[2], 0, maxDistance, 255, 100)
+      let transparency = map(distanceValues[2], 0, maxDistance, 255, 0)
       stars02[2].color.setAlpha(transparency);
     }
 
@@ -710,12 +725,12 @@ function distances() {
 
 }
 
-function addDetails(){
-  if(stage == 1){
+function addDetails() {
+  if (stage == 1) {
     starDeploy()
-   
 
-  }else if(stage == 2){
+
+  } else if (stage == 2) {
     starDeploy()
     planetL.draw();
     planetR.draw();
@@ -724,11 +739,11 @@ function addDetails(){
   }
 }
 
-function starDeploy(){
+function starDeploy() {
   if (frameCount % 600 == 0) {
     drawShootingStar = true
   }
-  
+
   if (drawShootingStar == true) {
     if (shootingStar.x < 1000) {
       shootingStar.draw()
