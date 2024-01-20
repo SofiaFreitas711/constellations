@@ -42,7 +42,7 @@ class Star {
 class Star02 {
   constructor(x, y) {
     this.opacity = 255
-    this.color = color("red")
+    this.color = color("white")
     this.x = random(0, w)
     this.y = random(0, h)
     this.scale = random(0.5, 1)
@@ -104,9 +104,9 @@ class PlanetRadial {
 class PlanetLinear {
   constructor(colorStop1, colorStop2, colorStop3) {
     this.x = random(w / 2, w);
-    this.y = random(h, h / 3);
+    this.y = random(h/3, h);
     this.radius = 60;
-    this.scale = random(0.1, 1)
+    this.scale = random(0.1, 0.7)
     this.colorStop1 = colorStop1;
     this.colorStop2 = colorStop2;
     this.colorStop3 = colorStop3;
@@ -411,12 +411,6 @@ function draw() {
 
   drawConstellation()
 
-  galaxy.draw()
-  galaxy02.draw()
-  planetL.draw()
-  planetR.draw()
-
-
   for (let i = 0; i < stars.length; i++) {
     let star = stars[i]
 
@@ -473,7 +467,7 @@ function drawSkeleton() {
 function drawConstellation() {
 
   distances()
-  let maxDistance = 10
+  let maxDistance = 100
 
   if (stage == 0) {
     stars02[0] = new Star02
@@ -481,10 +475,10 @@ function drawConstellation() {
     stars02[0].y = constellations[0].LWY
     stars02[0].color.setAlpha(0)
 
-    if (distanceValues[0] < 250) {
-      stars02[0].color = color("red")
+    if (distanceValues[0] < 50) {
+      stars02[0].color = color("#009fb7")
     } else {
-      let transparency = map(distanceValues[0], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[0], 0, maxDistance, 255, 100)
       stars02[0].color.setAlpha(transparency);
     }
 
@@ -493,10 +487,10 @@ function drawConstellation() {
     stars02[1].y = constellations[0].LEY
     stars02[1].color.setAlpha(0)
 
-    if (distanceValues[1] < 150) {
-      stars02[1].color = color("red")
+    if (distanceValues[1] < 50) {
+      stars02[1].color = color("#fed766")
     } else {
-      let transparency = map(distanceValues[1], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[1], 0, maxDistance, 255, 100)
       stars02[1].color.setAlpha(transparency);
     }
 
@@ -506,9 +500,9 @@ function drawConstellation() {
     stars02[2].color.setAlpha(0)
 
     if (distanceValues[2] < 100) {
-      stars02[2].color = color("red")
+      stars02[2].color = color("#fe4a49")
     } else {
-      let transparency = map(distanceValues[2], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[2], 0, maxDistance, 255, 100)
       stars02[2].color.setAlpha(transparency);
     }
 
@@ -518,9 +512,9 @@ function drawConstellation() {
     stars02[3].color.setAlpha(0)
 
     if (distanceValues[3] < 100) {
-      stars02[3].color = color("red")
+      stars02[3].color = color("#fe4a49")
     } else {
-      let transparency = map(distanceValues[3], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[3], 0, maxDistance, 255, 100)
       stars02[3].color.setAlpha(transparency);
     }
 
@@ -533,9 +527,9 @@ function drawConstellation() {
     stars02[0].color.setAlpha(0)
 
     if (distanceValues[0] < 250) {
-      stars02[0].color = color("red")
+      stars02[0].color = color("#009fb7")
     } else {
-      let transparency = map(distanceValues[0], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[0], 0, maxDistance, 255, 100)
       stars02[0].color.setAlpha(transparency);
     }
 
@@ -545,9 +539,9 @@ function drawConstellation() {
     stars02[1].color.setAlpha(0)
 
     if (distanceValues[1] < 150) {
-      stars02[1].color = color("red")
+      stars02[1].color = color("#fed766")
     } else {
-      let transparency = map(distanceValues[1], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[1], 0, maxDistance, 255, 100)
       stars02[1].color.setAlpha(transparency);
     }
 
@@ -557,9 +551,9 @@ function drawConstellation() {
     stars02[2].color.setAlpha(0)
 
     if (distanceValues[2] < 100) {
-      stars02[2].color = color("red")
+      stars02[2].color = color("#fe4a49")
     } else {
-      let transparency = map(distanceValues[2], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[2], 0, maxDistance, 255, 100)
       stars02[2].color.setAlpha(transparency);
     }
 
@@ -569,9 +563,9 @@ function drawConstellation() {
     stars02[3].color.setAlpha(0)
 
     if (distanceValues[3] < 100) {
-      stars02[3].color = color("red")
+      stars02[3].color = color("#fe4a49")
     } else {
-      let transparency = map(distanceValues[3], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[3], 0, maxDistance, 255, 100)
       stars02[3].color.setAlpha(transparency);
     }
 
@@ -581,9 +575,9 @@ function drawConstellation() {
     stars02[4].color.setAlpha(0)
 
     if (distanceValues[4] < 150) {
-      stars02[4].color = color("red")
+      stars02[4].color = color("#fed766")
     } else {
-      let transparency = map(distanceValues[4], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[4], 0, maxDistance, 255, 100)
       stars02[4].color.setAlpha(transparency);
     }
 
@@ -593,9 +587,9 @@ function drawConstellation() {
     stars02[5].color.setAlpha(0)
 
     if (distanceValues[5] < 250) {
-      stars02[5].color = color("red")
+      stars02[5].color = color("#009fb7")
     } else {
-      let transparency = map(distanceValues[5], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[5], 0, maxDistance, 255, 100)
       stars02[5].color.setAlpha(transparency);
     }
 
@@ -605,10 +599,10 @@ function drawConstellation() {
     stars02[0].y = constellations[2].LWY
     stars02[0].color.setAlpha(0)
 
-    if (distanceValues[0] < 250) {
-      stars02[0].color = color("red")
+    if (distanceValues[0] < 50) {
+      stars02[0].color = color("#009fb7")
     } else {
-      let transparency = map(distanceValues[0], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[0], 0, maxDistance, 255, 100)
       stars02[0].color.setAlpha(transparency);
     }
 
@@ -617,10 +611,10 @@ function drawConstellation() {
     stars02[1].y = constellations[2].LEY
     stars02[1].color.setAlpha(0)
 
-    if (distanceValues[1] < 150) {
-      stars02[1].color = color("red")
+    if (distanceValues[1] < 100) {
+      stars02[1].color = color("#fed766")
     } else {
-      let transparency = map(distanceValues[1], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[1], 0, maxDistance, 255, 100)
       stars02[1].color.setAlpha(transparency);
     }
 
@@ -630,9 +624,9 @@ function drawConstellation() {
     stars02[2].color.setAlpha(0)
 
     if (distanceValues[2] < 100) {
-      stars02[2].color = color("red")
+      stars02[2].color = color("#fe4a49")
     } else {
-      let transparency = map(distanceValues[2], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[2], 0, maxDistance, 255, 100)
       stars02[2].color.setAlpha(transparency);
     }
 
@@ -642,9 +636,9 @@ function drawConstellation() {
     stars02[3].color.setAlpha(0)
 
     if (distanceValues[3] < 100) {
-      stars02[3].color = color("red")
+      stars02[3].color = color("#fe4a49")
     } else {
-      let transparency = map(distanceValues[3], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[3], 0, maxDistance, 255, 100)
       stars02[3].color.setAlpha(transparency);
     }
 
@@ -653,10 +647,10 @@ function drawConstellation() {
     stars02[4].y = constellations[2].REY
     stars02[4].color.setAlpha(0)
 
-    if (distanceValues[4] < 150) {
-      stars02[4].color = color("red")
+    if (distanceValues[4] < 80) {
+      stars02[4].color = color("#fed766")
     } else {
-      let transparency = map(distanceValues[4], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[4], 0, maxDistance, 255, 100)
       stars02[4].color.setAlpha(transparency);
     }
 
@@ -665,10 +659,10 @@ function drawConstellation() {
     stars02[5].y = constellations[2].RWY
     stars02[5].color.setAlpha(0)
 
-    if (distanceValues[5] < 250) {
-      stars02[5].color = color("red")
+    if (distanceValues[5] < 50) {
+      stars02[5].color = color("#009fb7")
     } else {
-      let transparency = map(distanceValues[5], 0, maxDistance, 255, 0)
+      let transparency = map(distanceValues[5], 0, maxDistance, 255, 100)
       stars02[5].color.setAlpha(transparency);
     }
   }
@@ -681,33 +675,33 @@ function distances() {
   let LW, LE, LS, RX, RE, RW
 
   if (stage == 0) {
-    LW = dist(leftWristX, leftWristY, constellations[0].LWX, constellations[0].LWY)
-    LE = dist(leftElbowX, leftElbowY, constellations[0].LEX, constellations[0].LEY)
-    LS = dist(leftShoulderX, leftShoulderY, constellations[0].LSX, constellations[0].LSY)
-    RX = dist(rightShoulderX, rightShoulderY, constellations[0].RSX, constellations[0].RSY)
+    LW = dist(rightWristX, rightWristY, constellations[0].LWX, constellations[0].LWY)
+    LE = dist(rightElbowX, rightElbowY, constellations[0].LEX, constellations[0].LEY)
+    LS = dist(rightShoulderX, rightShoulderY, constellations[0].LSX, constellations[0].LSY)
+    RX = dist(leftShoulderX, leftShoulderY, constellations[0].RSX, constellations[0].RSY)
 
     distanceValues.push(LW, LE, LS, RX)
     console.log(distanceValues)
 
   } else if (stage == 1) {
-    LW = dist(leftWristX, leftWristY, constellations[1].LWX, constellations[1].LWY)
-    LE = dist(leftElbowX, leftElbowY, constellations[1].LEX, constellations[1].LEY)
-    LS = dist(leftShoulderX, leftShoulderY, constellations[1].LSX, constellations[1].LSY)
-    RX = dist(rightShoulderX, rightShoulderY, constellations[1].RSX, constellations[1].RSY)
-    RE = dist(rightElbowX, rightElbowY, constellations[1].REX, constellations[1].REY)
-    RW = dist(rightWristX, rightWristY, constellations[1].RWX, constellations[1].RWY)
+    LW = dist(rightWristX, rightWristX, constellations[1].LWX, constellations[1].LWY)
+    LE = dist(rightElbowX, rightElbowY, constellations[1].LEX, constellations[1].LEY)
+    LS = dist(rightShoulderX, rightShoulderY, constellations[1].LSX, constellations[1].LSY)
+    RX = dist(leftShoulderX, leftShoulderY, constellations[1].RSX, constellations[1].RSY)
+    RE = dist(leftElbowX, leftElbowY, constellations[1].REX, constellations[1].REY)
+    RW = dist(leftWristX, leftWristY, constellations[1].RWX, constellations[1].RWY)
 
     distanceValues.push(LW, LE, LS, RX, RE, RW)
     console.log(distanceValues)
 
 
   } else {
-    LW = dist(leftWristX, leftWristY, constellations[2].LWX, constellations[2].LWY)
-    LE = dist(leftElbowX, leftElbowY, constellations[2].LEX, constellations[2].LEY)
-    LS = dist(leftShoulderX, leftShoulderY, constellations[2].LSX, constellations[2].LSY)
-    RX = dist(rightShoulderX, rightShoulderY, constellations[2].RSX, constellations[2].RSY)
-    RE = dist(rightElbowX, rightElbowY, constellations[2].REX, constellations[2].REY)
-    RW = dist(rightWristX, rightWristY, constellations[2].RWX, constellations[2].RWY)
+    LE = dist(rightElbowX, rightElbowY, constellations[2].LEX, constellations[2].LEY)
+    LW = dist(rightWristX, rightWristY, constellations[2].LWX, constellations[2].LWY)
+    LS = dist(rightShoulderX, rightShoulderY, constellations[2].LSX, constellations[2].LSY)
+    RX = dist(leftShoulderX, leftShoulderY, constellations[2].RSX, constellations[2].RSY)
+    RE = dist(leftElbowX, leftElbowY, constellations[2].REX, constellations[2].REY)
+    RW = dist(leftWristX, leftWristY, constellations[2].RWX, constellations[2].RWY)
 
     distanceValues.push(LW, LE, LS, RX, RE, RW)
     console.log(distanceValues)
@@ -723,10 +717,10 @@ function addDetails(){
 
   }else if(stage == 2){
     starDeploy()
-    // planetL.draw();
-    // planetR.draw();
-    // galaxy.draw()
-    // galaxy02.draw()
+    planetL.draw();
+    planetR.draw();
+    galaxy.draw()
+    galaxy02.draw()
   }
 }
 
