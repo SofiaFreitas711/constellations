@@ -278,12 +278,11 @@ function preload(){
 }
 
 function setup() {
-  // translate(w, 0)
-  // scale(-1, 1)
   let canvas = createCanvas(1000, 820);
   canvas.position(350, 0)
   video = createCapture(VIDEO)
   video.size(1000, 820)
+  
 
   poseNet = ml5.poseNet(video, { poseResolution: 17, confidenceThreshold: 0.7, maxPoseDetections: 1 });
   poseNet.on("pose", gotPoses);
@@ -397,6 +396,8 @@ function gotPoses(poses) {
 }
 
 function draw() {
+  translate(1000,0)
+  scale(-1,1)
   image(video, 0, 0, width, height);
   // planetL.draw();
   // planetR.draw();
