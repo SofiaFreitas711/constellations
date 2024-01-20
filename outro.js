@@ -127,7 +127,7 @@ class PlanetLinear {
 class Galaxy {
   constructor(colorStop1, colorStop2) {
     this.x = random(0, w / 2);
-    this.y = random(0, h);
+    this.y = random(0, h / 2);
     this.radius = 200;
     this.scale = random(0.1, 3)
     this.colorStop1 = colorStop1;
@@ -136,10 +136,10 @@ class Galaxy {
 
   draw() {
     noStroke()
-
+    push()
     let grad2 = drawingContext.createRadialGradient(
-      this.x, this.y, this.radius * 0.1,
-      this.x, this.y, this.radius * 0.7
+      this.x, this.y, this.radius * 0.01,
+      this.x, this.y, this.radius * 0.5
     );
 
     grad2.addColorStop(0, this.colorStop1);
@@ -148,16 +148,16 @@ class Galaxy {
     drawingContext.fillStyle = grad2;
 
     ellipse(this.x, this.y, this.radius * 0.7, this.radius * 1.4);
+    pop()
   }
 }
 
 class Galaxy02 {
   constructor(colorStop1, colorStop2) {
-    this.x = random(w / 2, w);
-    this.y = random(0, h);
+    this.x = 200
+    this.y = 150;
     this.radiusX = 250;
     this.radiusY = 100;
-    this.scale = random(0.5, 3)
     this.colorStop1 = colorStop1;
     this.colorStop2 = colorStop2;
   }
@@ -165,32 +165,21 @@ class Galaxy02 {
   draw() {
     noStroke()
     scale(this.scale, 0.5);
-
     push()
 
-    let grad2 = drawingContext.createRadialGradient(
+    let grad = drawingContext.createRadialGradient(
       this.x, this.y, this.radiusX / 150,
-      this.x, this.y, this.radiusY
+      this.x, this.y, this.radiusY 
     );
 
-    grad2.addColorStop(0, color(
-      red(this.colorStop1),
-      green(this.colorStop1),
-      blue(this.colorStop1),
-      255
-    ));
+    grad.addColorStop(0.1, color(252, 232, 100, 255));
+    grad.addColorStop(0.7, color(310, 80, 100, 0));
 
-    grad2.addColorStop(0.5, color(
-      red(this.colorStop2),
-      green(this.colorStop2),
-      blue(this.colorStop2),
-      0
-    ));
+    drawingContext.fillStyle = grad;
 
-    drawingContext.fillStyle = grad2;
-
-    ellipse(this.x, this.y, this.radiusX, this.radiusY);
+    ellipse(this.x, this.y, this.radiusX , this.radiusY );
     pop()
+
   }
 }
 
@@ -278,10 +267,11 @@ function setup() {
   poseNet.on("pose", gotPoses);
   video.hide();
 
-  // planetL = new PlanetLinear(color(10, 150, 100), color(252, 232, 100), color(310, 80, 100));
-  // planetR = new PlanetRadial(color(252, 232, 100), color(310, 80, 100));
-  // galaxy = new Galaxy(color(252, 232, 100, 200), color(310, 80, 100, 0));
-  // galaxy02 = new Galaxy02(color(252, 232, 100, 255), color(310, 80, 100, 0));
+  planetL = new PlanetLinear(color(10, 150, 100), color(252, 232, 100), color(310, 80, 100));
+  planetR = new PlanetRadial(color(252, 232, 100), color(310, 80, 100));
+  galaxy = new Galaxy(color(252, 232, 100, 200), color(310, 80, 100, 0));
+  galaxy02 = new Galaxy02(color(252, 232, 100, 255), color(310, 80, 100, 0));
+
 
   for (let i = 0; i < 30; i++) {
     stars[i] = new Star()
@@ -329,6 +319,7 @@ function setup() {
   stars[length + 9].x = rightKneeX
   stars[length + 9].y = rightKneeY
   stars[length + 9].color = color("#f9dc5c")
+
 
 }
 
@@ -384,10 +375,7 @@ function gotPoses(poses) {
 
 function draw() {
   image(video, 0, 0, width, height);
-  // planetL.draw();
-  // planetR.draw();
-  // galaxy.draw()
-  // galaxy02.draw()
+
   // ["0E1422","273559","324063"]
   push()
   if (stage == 0) {
@@ -403,6 +391,7 @@ function draw() {
   rect(0, 0, w, h)
   pop()
 
+
   if (frameCount % 600 == 0) {
     drawShootingStar = true
   }
@@ -416,9 +405,16 @@ function draw() {
       shootingStar.x = -15
     }
   }
+
   drawSkeleton();
 
   drawConstellation()
+
+  galaxy.draw()
+  galaxy02.draw()
+  planetL.draw()
+  planetR.draw()
+
 
   for (let i = 0; i < stars.length; i++) {
     let star = stars[i]
@@ -454,6 +450,7 @@ function draw() {
   stars[length + 9].y = rightKneeY - 8
 
   fill("red")
+
 
 }
 
@@ -717,4 +714,5 @@ function distances() {
   }
 
 }
+
 
