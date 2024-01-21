@@ -393,9 +393,6 @@ function draw() {
     for (let i = 0; i < stars.length; i++) {
       let star = stars[i]
 
-      let randomAlpha = floor(random(100));
-      star.color.setAlpha(randomAlpha);
-
       star.draw()
     }
 
