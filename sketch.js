@@ -244,8 +244,8 @@ let astroX = 500
 let astroY = 450
 
 function preload() {
-  sound = loadSound("relax.wav")
-  astro = loadImage("astro.svg")
+  sound = loadSound("assets/relax.wav")
+  astro = loadImage("assets/astro.svg")
 }
 
 function setup() {
@@ -264,7 +264,7 @@ function setup() {
   galaxy = new Galaxy();
 
   sound.loop()
-  sound.setVolume(0.3)
+  sound.setVolume(0.2)
 
   for (let i = 0; i < 30; i++) {
     stars[i] = new Star()
