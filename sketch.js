@@ -372,7 +372,6 @@ function draw() {
   scale(-1, 1)
   image(video, 0, 0, width, height);
 
-  // ["0E1422","273559","324063"]
   push()
   if (stage == 0) {
     sky = "#000000"
@@ -381,17 +380,14 @@ function draw() {
   } else {
     sky = "#485880"
   }
-  // document.querySelector("html").style.backgroundColor = sky
-  // document.querySelector("body").style.border = sky
+
   fill(sky)
   rect(0, 0, w, h)
   pop()
 
-  if (stage < 3) {
-
+  if(stage<3){
     addDetails()
     drawSkeleton();
-
     drawConstellation()
 
     for (let i = 0; i < stars.length; i++) {
@@ -430,17 +426,9 @@ function draw() {
     stars[length + 8].y = leftKneeY - 8
     stars[length + 9].x = rightKneeX - 8
     stars[length + 9].y = rightKneeY - 8
-  } else {
-    // for(let i=0; i<stars.length; i++){
-    //   let star = stars[i]
-
-    //   star.color = "pink"
-    // }
+  }else{
     end()
   }
-
-  // fill("red")
-
 
 }
 
@@ -685,7 +673,6 @@ function distances() {
     RX = dist(leftShoulderX, leftShoulderY, constellations[0].RSX, constellations[0].RSY)
 
     distanceValues.push(LW, LE, LS, RX)
-    // console.log(distanceValues)
 
   } else if (stage == 1) {
     LW = dist(rightWristX, rightWristX, constellations[1].LWX, constellations[1].LWY)
@@ -696,8 +683,6 @@ function distances() {
     RW = dist(leftWristX, leftWristY, constellations[1].RWX, constellations[1].RWY)
 
     distanceValues.push(LW, LE, LS, RX, RE, RW)
-    // console.log(distanceValues)
-
 
   } else {
     LE = dist(rightElbowX, rightElbowY, constellations[2].LEX, constellations[2].LEY)
@@ -708,7 +693,6 @@ function distances() {
     RW = dist(leftWristX, leftWristY, constellations[2].RWX, constellations[2].RWY)
 
     distanceValues.push(LW, LE, LS, RX, RE, RW)
-    // console.log(distanceValues)
 
   }
 
@@ -787,9 +771,8 @@ function end() {
   keyPressed()
 }
 
-function keyPressed() {
-  if (key == " ") {
-    stage = 0
-
+function keyPressed(){
+  if(key ==" "){
+    stage=0
   }
 }
