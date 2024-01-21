@@ -8,7 +8,6 @@ class Star {
 
   draw() {
     if (frameCount % 180 == 0) {
-      // this.color = color(255,255,255,0)
       this.x = random(0, w)
       this.y = random(0, h)
     }
@@ -53,8 +52,6 @@ class Star02 {
     push()
     noStroke()
     fill(this.color)
-    // drawingContext.shadowBlur = 30
-    // drawingContext.shadowColor = color("white")
     beginShape()
     vertex(this.x + 10, this.y + 2)
     vertex(this.x + 14, this.y + 8)
