@@ -314,7 +314,7 @@ function setup() {
   stars[length + 9].color = color("#f9dc5c")
 
   imageMode(CENTER);
-  astro.resize(500,457)
+  astro.resize(500, 457)
 }
 
 function gotPoses(poses) {
@@ -387,25 +387,29 @@ function draw() {
   rect(0, 0, w, h)
   pop()
 
-  if(stage<3){
+  if (stage < 3) {
 
     addDetails()
     drawSkeleton();
-  
+
     drawConstellation()
-  
+
     for (let i = 0; i < stars.length; i++) {
       let star = stars[i]
-  
+
+      let randomAlpha = floor(random(100));
+      star.color.setAlpha(randomAlpha);
+
       star.draw()
     }
-  
+
     for (let i = 0; i < stars02.length; i++) {
       let star = stars02[i]
-  
+
       star.draw()
     }
-  
+
+
     stars[length].x = leftShoulderX - 8
     stars[length].y = leftShoulderY - 8
     stars[length + 1].x = rightShoulderX - 8
@@ -426,7 +430,7 @@ function draw() {
     stars[length + 8].y = leftKneeY - 8
     stars[length + 9].x = rightKneeX - 8
     stars[length + 9].y = rightKneeY - 8
-  }else{
+  } else {
     // for(let i=0; i<stars.length; i++){
     //   let star = stars[i]
 
@@ -436,7 +440,7 @@ function draw() {
   }
 
   // fill("red")
-  
+
 
 }
 
@@ -666,6 +670,7 @@ function drawConstellation() {
   if (avg <= 25 && stage < 3) {
     stage++;
   }
+
 }
 
 function distances() {
@@ -742,20 +747,34 @@ function starDeploy() {
   }
 }
 
-function end(){
-  for(let i = 0; i< stars.length; i++){
+function end() {
+
+  for (let i = 0; i < stars.length; i++) {
+
     let star = stars[i]
-    if(frameCount%60==0){
-      star.color = color(random(["red", "orange", "yellow", "green", "blue", "hotPink", "purple"]))
+    let sat = brightness(star.color)
+
+    let transparency = map(sat, 0, 100, 255, 0)
+
+    if (frameCount % 60 == 0) {
+      // push()
+
+      let randomColor = color(random(255), random(255), random(255));
+      star.color = randomColor
+      star.color.setAlpha(transparency);
+
     }
+
     star.draw()
+    // pop()
+
   }
 
   push()
   translate(1000, 0)
   scale(-1, 1)
   image(astro, astroX, astroY)
-  astroY = 400 + cos(frameCount/40)*50
+  astroY = 400 + cos(frameCount / 40) * 50
 
   textSize(40)
   stroke("white")
@@ -763,14 +782,14 @@ function end(){
   fill("white")
   text("Press SPACE to restart", 300, 700)
   pop()
- 
+
 
   keyPressed()
 }
 
-function keyPressed(){
-  if(key ==" "){
-    stage=0
+function keyPressed() {
+  if (key == " ") {
+    stage = 0
 
   }
 }
