@@ -12,7 +12,7 @@ class Star {
       this.x = random(0, w)
       this.y = random(0, h)
     }
-    if (stage == 1 || stage == 2) {
+    if (stage >=1) {
       this.blur = 30
     }
     push()
@@ -771,6 +771,12 @@ function end() {
 
 function keyPressed(){
   if(key ==" "){
-    stage=0
+    stage=0 
+    stars = []
+    for (let i = 0; i < 30; i++) {
+      stars[i] = new Star()
+    }
+    setup()
+    
   }
 }
