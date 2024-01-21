@@ -741,7 +741,6 @@ function end() {
     let transparency = map(sat, 0, 100, 255, 0)
 
     if (frameCount % 60 == 0) {
-      // push()
 
       let randomColor = color(random(255), random(255), random(255));
       star.color = randomColor
@@ -750,7 +749,6 @@ function end() {
     }
 
     star.draw()
-    // pop()
 
   }
 
